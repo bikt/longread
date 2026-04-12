@@ -264,3 +264,76 @@ body {
     .panel__title  { opacity: $inactive-opacity; }
   }
 }
+
+// =========================================
+// Mobile — vertical accordion (< 1280px)
+// =========================================
+
+$mobile-breakpoint: 1279px;
+$mobile-number-size: 48px;
+$panel-collapsed-height: 80px;
+$panel-expanded-max: 2000px;
+
+@media (max-width: $mobile-breakpoint) {
+  html,
+  body {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .about {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+
+    &__bg { position: fixed; }
+
+    &__panels {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+
+  .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-width: unset;
+    min-height: unset;
+    max-height: $panel-collapsed-height;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+      max-height 350ms $ease,
+      background $duration $ease;
+
+    &__top {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 0;
+    }
+
+    &__number {
+      font-size: $mobile-number-size;
+      letter-spacing: -2px;
+      flex-shrink: 0;
+    }
+
+    &.is-expanding,
+    &.is-active,
+    &.is-collapsing {
+      flex: none;
+      max-height: $panel-expanded-max;
+      overflow: hidden;
+    }
+
+    &.is-expanding .panel__top,
+    &.is-active    .panel__top,
+    &.is-collapsing .panel__top {
+      position: relative;
+      top: auto;
+    }
+  }
+}

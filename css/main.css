@@ -286,3 +286,76 @@ body {
 }
 .panel.is-inactive .panel__number { opacity: 0.4; }
 .panel.is-inactive .panel__title  { opacity: 0.4; }
+
+/* =========================================
+   Mobile — vertical accordion (< 1280px)
+   ========================================= */
+@media (max-width: 1279px) {
+  html,
+  body {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .about {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .about__bg {
+    position: fixed;
+  }
+
+  .about__panels {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Panel: collapsed = one row, fixed height */
+  .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-width: unset;
+    min-height: unset;
+    max-height: 80px;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+      max-height 350ms ease-in-out,
+      background 250ms ease-in-out;
+  }
+
+  /* Header: horizontal row on mobile */
+  .panel__top {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+
+  .panel__number {
+    font-size: 48px;
+    letter-spacing: -2px;
+    flex-shrink: 0;
+  }
+
+  /* Expanded states: override desktop flex rules with max-height */
+  .panel.is-expanding,
+  .panel.is-active,
+  .panel.is-collapsing {
+    flex: none;
+    max-height: 2000px;
+    overflow: hidden;
+  }
+
+  /* No sticky header on mobile */
+  .panel.is-expanding .panel__top,
+  .panel.is-active    .panel__top,
+  .panel.is-collapsing .panel__top {
+    position: relative;
+    top: auto;
+  }
+}
