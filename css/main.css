@@ -1,0 +1,288 @@
+/* =========================================
+   Compiled from scss/main.scss
+   ========================================= */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #454545;
+}
+
+/* =========================================
+   About Section — fixed 1920×1080
+   ========================================= */
+
+.about {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: #e6e6e6;
+  font-family: "Suisse Intl", "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+}
+
+.about__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.about__bg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vmax;
+  height: 100vmax;
+  transform: translate(-50%, -50%) rotate(90deg);
+  object-fit: cover;
+  opacity: 0.15;
+  filter: blur(40px);
+}
+
+.about__panels {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: stretch;
+}
+
+/* =========================================
+   Panel — base
+   ========================================= */
+
+.panel {
+  flex: 1 1 0;
+  min-width: 56px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  cursor: default;
+  overflow: hidden;
+  position: relative;
+  transition:
+    flex-grow   250ms ease-in-out,
+    flex-basis  250ms ease-in-out,
+    background  250ms ease-in-out;
+}
+
+/* Top: number + title */
+.panel__top {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  flex-shrink: 0;
+}
+
+.panel__number {
+  font-weight: 300;
+  font-size: 150px;
+  letter-spacing: -3px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: opacity 250ms ease-in-out;
+}
+
+.panel__title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  white-space: nowrap;
+  transition: opacity 250ms ease-in-out;
+}
+
+/* Content: hidden by default */
+.panel__content {
+  flex-shrink: 0;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity   250ms ease-in-out,
+    transform 250ms ease-in-out;
+}
+
+/* Text block */
+.panel__body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.panel__heading {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+  width: 100%;
+}
+
+.panel__paras {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+}
+
+.panel__para {
+  text-indent: 15px;
+}
+
+.panel__subtitle-block {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Image areas */
+.panel__images {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-top: 50px;
+}
+
+.panel__images--tall { height: 583px; width: 100%; }
+.panel__images--wide { height: 464px; width: 100%; }
+
+.panel__img-main {
+  position: absolute;
+  width: 255px;
+  height: 339px;
+  left: 50%;
+  top: calc(50% + 122px);
+  transform: translate(-50%, -50%);
+}
+
+.panel__img-main img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel__img-overlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 194px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.panel__img-rotated {
+  transform: rotate(90deg);
+  width: 194px;
+  height: 446px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.panel__img-rotated img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel__img-left {
+  position: absolute;
+  left: 0; top: 0;
+  width: 171px; height: 227px;
+}
+
+.panel__img-right {
+  position: absolute;
+  right: 0; top: 0;
+  width: 171px; height: 464px;
+}
+
+.panel__img-left img,
+.panel__img-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================================
+   States
+   ========================================= */
+
+/* ── is-expanding: panel opens, content still hidden ── */
+.panel.is-expanding {
+  flex: 0 0 477px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.panel.is-expanding::-webkit-scrollbar { display: none; }
+
+/* ── is-active: panel open, content visible ── */
+.panel.is-active {
+  flex: 0 0 477px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.panel.is-active::-webkit-scrollbar { display: none; }
+
+.panel.is-active .panel__content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ── is-collapsing: content hiding, panel still open ── */
+.panel.is-collapsing {
+  flex: 0 0 477px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+/* Sticky header — visible in all three expanded states, no background */
+.panel.is-expanding .panel__top,
+.panel.is-active    .panel__top,
+.panel.is-collapsing .panel__top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ── is-inactive: dims number and title, removes frosted background ── */
+.panel.is-inactive {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.panel.is-inactive .panel__number { opacity: 0.4; }
+.panel.is-inactive .panel__title  { opacity: 0.4; }

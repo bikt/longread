@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -sLo a.jpg \"https://www.figma.com/api/mcp/asset/100886ca-7b98-43d6-b964-d68ef2ef0c33\")",
+      "Bash(curl -sLo b.jpg \"https://www.figma.com/api/mcp/asset/9067c77c-6e3c-4db3-8222-f55f76c44432\")",
+      "Bash(curl -sLo c.jpg \"https://www.figma.com/api/mcp/asset/a0ce931d-2226-4e08-9073-30f0c1c3c58d\")",
+      "Bash(curl -sLo d.jpg \"https://www.figma.com/api/mcp/asset/043c7b6d-f84f-4c6d-aba7-0543e511df0d\")",
+      "Bash(curl -sLo e.jpg \"https://www.figma.com/api/mcp/asset/843cada5-1d50-4c1b-9ddd-3bdbec0fd29c\")",
+      "Bash(curl -L -o \"C:\\\\Users\\\\mrbik\\\\Desktop\\\\claude\\\\longread\\\\img\\\\a.jpg\" \"https://www.figma.com/api/mcp/asset/100886ca-7b98-43d6-b964-d68ef2ef0c33\")",
+      "Bash(powershell -Command ':*)",
+      "Bash(curl -sL -o /c/Users/mrbik/Desktop/claude/longread/img/b.jpg https://www.figma.com/api/mcp/asset/9067c77c-6e3c-4db3-8222-f55f76c44432)",
+      "Bash(curl -sL -o __TRACKED_VAR__/c.jpg https://www.figma.com/api/mcp/asset/a0ce931d-2226-4e08-9073-30f0c1c3c58d)",
+      "Bash(curl -sL -o __TRACKED_VAR__/d.jpg https://www.figma.com/api/mcp/asset/043c7b6d-f84f-4c6d-aba7-0543e511df0d)",
+      "Bash(curl -sL -o __TRACKED_VAR__/e.jpg https://www.figma.com/api/mcp/asset/843cada5-1d50-4c1b-9ddd-3bdbec0fd29c)",
+      "Bash(curl -sL -o __TRACKED_VAR__/f.jpg https://www.figma.com/api/mcp/asset/4a0d4547-7999-4997-baef-52555faed31f)",
+      "Bash(gh auth:*)",
+      "Bash(git --version)",
+      "Bash(git config:*)"
+    ]
+  }
+}

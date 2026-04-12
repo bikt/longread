@@ -1,0 +1,266 @@
+// =========================================
+// Variables
+// =========================================
+
+$bg-color:           #454545;
+$text-color:         #e6e6e6;
+$panel-bg:           rgba(255, 255, 255, 0);
+$panel-bg-active:    rgba(255, 255, 255, 0.04);
+$inactive-opacity:   0.4;
+$duration:           250ms;
+$ease:               ease-in-out;
+$panel-active-width: 477px; // 457px content + 2×10px padding
+$font-stack:         'Suisse Intl', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+// =========================================
+// Reset
+// =========================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: $bg-color;
+}
+
+// =========================================
+// About Section
+// =========================================
+
+.about {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: $text-color;
+  font-family: $font-stack;
+  font-style: normal;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vmax;
+      height: 100vmax;
+      transform: translate(-50%, -50%) rotate(90deg);
+      object-fit: cover;
+      opacity: 0.15;
+      filter: blur(40px);
+    }
+  }
+
+  &__panels {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: stretch;
+  }
+}
+
+// =========================================
+// Panel — base
+// =========================================
+
+.panel {
+  flex: 1 1 0;
+  min-width: 56px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: $panel-bg;
+  border-radius: 5px;
+  cursor: default;
+  overflow: hidden;
+  position: relative;
+  transition:
+    flex-grow  $duration $ease,
+    flex-basis $duration $ease,
+    background $duration $ease;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    flex-shrink: 0;
+  }
+
+  &__number {
+    font-weight: 300;
+    font-size: 150px;
+    letter-spacing: -3px;
+    line-height: 1;
+    white-space: nowrap;
+    transition: opacity $duration $ease;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    white-space: nowrap;
+    transition: opacity $duration $ease;
+  }
+
+  // Hidden by default; revealed when active
+  &__content {
+    flex-shrink: 0;
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition:
+      opacity   $duration $ease,
+      transform $duration $ease;
+  }
+
+  &__body-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+
+  &__heading {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__paras {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  &__para { text-indent: 15px; }
+
+  &__subtitle-block {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  // Image areas
+  &__images {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-top: 50px;
+    &--tall { height: 583px; width: 100%; }
+    &--wide { height: 464px; width: 100%; }
+  }
+
+  &__img-main {
+    position: absolute;
+    width: 255px; height: 339px;
+    left: 50%; top: calc(50% + 122px);
+    transform: translate(-50%, -50%);
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__img-overlay {
+    position: absolute;
+    left: 0; top: 0; width: 100%; height: 194px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  &__img-rotated {
+    transform: rotate(90deg);
+    width: 194px; height: 446px;
+    position: relative; flex-shrink: 0;
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__img-left {
+    position: absolute; left: 0; top: 0; width: 171px; height: 227px;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__img-right {
+    position: absolute; right: 0; top: 0; width: 171px; height: 464px;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  // =========================================
+  // States (managed by JS)
+  // =========================================
+
+  // Phase 1 on enter: panel opens, content still hidden
+  &.is-expanding {
+    flex: 0 0 $panel-active-width;
+    background: $panel-bg-active;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  // Phase 2 on enter: content revealed
+  &.is-active {
+    flex: 0 0 $panel-active-width;
+    background: $panel-bg-active;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+
+    .panel__content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  // Phase 1 on leave: content hides, panel still open
+  &.is-collapsing {
+    flex: 0 0 $panel-active-width;
+    background: $panel-bg-active;
+    overflow: hidden;
+  }
+
+  // Sticky header — no background, floats over scrolling content
+  &.is-expanding .panel__top,
+  &.is-active    .panel__top,
+  &.is-collapsing .panel__top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  // Dimmed while another panel is expanded
+  &.is-inactive {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    .panel__number { opacity: $inactive-opacity; }
+    .panel__title  { opacity: $inactive-opacity; }
+  }
+}
