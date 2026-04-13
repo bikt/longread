@@ -293,39 +293,38 @@ body {
 @media (max-width: 1279px) {
   html,
   body {
-    height: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100%;
+    overflow: hidden;
   }
 
   .about {
-    height: auto;
-    min-height: 100dvh;
-    overflow: visible;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   .about__bg {
-    position: fixed;
+    position: absolute;
   }
 
   .about__panels {
     flex-direction: column;
-    height: auto;
+    height: 100dvh;
+    overflow: hidden;
   }
 
-  /* Panel: collapsed = one row, fixed height */
+  /* Panel: collapsed = slim row */
   .panel {
-    flex: none;
+    flex: 1 1 0;
     width: 100%;
     height: auto;
     min-width: unset;
-    min-height: unset;
-    max-height: 80px;
+    min-height: 56px;
     overflow: hidden;
     cursor: pointer;
     transition:
-      max-height 350ms ease-in-out,
-      background 250ms ease-in-out;
+      flex-grow   250ms ease-in-out,
+      flex-basis  250ms ease-in-out,
+      background  250ms ease-in-out;
   }
 
   /* Header: horizontal row on mobile */
@@ -342,20 +341,28 @@ body {
     flex-shrink: 0;
   }
 
-  /* Expanded states: override desktop flex rules with max-height */
+  /* Expanded: takes all available space */
   .panel.is-expanding,
-  .panel.is-active,
+  .panel.is-active {
+    flex: 0 0 calc(100dvh - 6 * 56px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .panel.is-expanding::-webkit-scrollbar,
+  .panel.is-active::-webkit-scrollbar { display: none; }
+
   .panel.is-collapsing {
-    flex: none;
-    max-height: 2000px;
+    flex: 0 0 calc(100dvh - 6 * 56px);
     overflow: hidden;
   }
 
-  /* No sticky header on mobile */
+  /* Sticky header on mobile too */
   .panel.is-expanding .panel__top,
   .panel.is-active    .panel__top,
   .panel.is-collapsing .panel__top {
-    position: relative;
-    top: auto;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 }
